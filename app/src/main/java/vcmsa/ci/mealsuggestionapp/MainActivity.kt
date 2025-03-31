@@ -20,22 +20,18 @@ class MainActivity : AppCompatActivity() {
         val timeInput = findViewById<EditText>(R.id.timeInput)
         val resultText = findViewById<TextView>(R.id.resultText)
         val suggestButton = findViewById<Button>(R.id.suggestButton)
+        val resetButton = findViewById<Button>(R.id.resetButton)
 
         suggestButton.setOnClickListener {
             val time = timeInput.text.toString().toIntOrNull()
             val timeText = timeInput.text.toString()
 
             if (timeText.isEmpty()) {
-                timeInput.error = "Please enter a time!" //the user must input a time
+                timeInput.error = "Please enter a time!" //the editText must not be left empty
                 return@setOnClickListener
             }
 
-            if (time == null || time !in 0..24) {
-                timeInput.error = "Enter a valid time (0-24)!"
-                resultText.text = "Invalid input. Please try again." //an error is displayed after the user input a negative number or a number bigger than 24
-                return@setOnClickListener
-            }
-
+            
             if (time in 0..24) {
                 val mealSuggestion = when (time)  {
                     in 5..10 -> "Bacon and Egg"
@@ -52,7 +48,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+                resetButton.setOnClickListener {
+                    resultText.text = ""
+                    timeInput.setText("")
+                }
 
 
 
